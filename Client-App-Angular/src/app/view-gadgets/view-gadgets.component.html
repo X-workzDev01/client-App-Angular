@@ -1,0 +1,65 @@
+
+ <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <p class="login-card-description">Enter EmailId To Get Gadgets</p>
+        <form [formGroup]="gadgetform" #clientDetails (ngSubmit)="getgadgets(clientDetails)">
+            <div class="form-group">
+              <label for="emailId" class="sr-only">Email</label>
+              <input formControlName="emailId" type="email" name="emailId" id="emailId" class="form-control" placeholder="Email address" style="width: fit-content;">
+              <div class="alert alert-danger" *ngIf = "(EmailId.touched) && (EmailId.invalid)" style="margin-top: 5px;">
+              <span *ngIf="EmailId.errors.required"> *EmailId is required</span>
+              <span *ngIf = "EmailId.errors.email"> Invalid Email Format </span>                   
+             </div>
+           </div>
+    <span>
+       <input name="submit" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Get Gadgets" style="width: fit-content;">
+    </span>
+    </form>
+</div> 
+
+<div class="datatable" style="width:115%">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 style="text-align: center">Gadgets List</h1><br>
+            <div class="row" [hidden]="!deleteMessage">
+    
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                              <div class="alert alert-info alert-dismissible">
+                                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                      <strong>Gadget Data Deleted</strong>
+                              </div>
+                      </div>
+                      <div class="col-sm-4"></div>
+              </div>           
+          </div>
+      
+        
+        <div class="panel-body">
+            <table  class="table table-hover table-sm" datatable [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger"  >
+                <thead class="thead-light">
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Model</th>
+                        <th>SerialNo</th>
+                        <th>McType</th>
+                        <th>Problem</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr *ngFor="let gadget of gadgets">
+                        <td>{{gadget.companyName}}</td>
+                        <td>{{gadget.model}}</td>
+                        <td>{{gadget.serialNo}}</td>
+                        <td>{{gadget.mcType}}</td>
+                        <td>{{gadget.problem}}</td>
+                        <td>
+                          <button (click)="updateclient(client.clientId)" class='btn btn-success'
+                          data-toggle="modal" data-target="#myModal">Update</button>
+                        </td>
+                      </tr> 
+                </tbody><br>
+            </table>
+        </div>
+      </div> 
